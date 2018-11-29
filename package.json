@@ -1,0 +1,26 @@
+{
+  "name": "sms_management_api",
+  "version": "1.0.0",
+  "description": "Application for handling messages",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sekams/sms_management_api.git"
+  },
+  "author": "Sekams",
+  "bugs": {
+    "url": "https://github.com/Sekams/sms_management_api/issues"
+  },
+  "homepage": "https://github.com/Sekams/sms_management_api#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.2",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.3.14",
+    "morgan": "^1.9.1"
+  }
+}
