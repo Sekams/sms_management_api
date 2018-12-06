@@ -9,7 +9,7 @@ var SMSSchema = new Schema({
     sender: { type: String, required: true },
     reciepient: { type: String, required: true },
     message: { type: String, required: true },
-    status: { type: String, required: true },
+    status: { type: String, default: 'sent'  },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });
