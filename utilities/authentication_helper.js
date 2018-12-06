@@ -20,8 +20,7 @@ const verifyToken = (req, res, next) => {
                     error.status = 404;
                     return next(error);
                 } else {
-                    req.contact = contact;
-                    req.body.contactId = decoded.id;
+                    req.loggedInContact = contact;
                     return next();
                 }
             });
