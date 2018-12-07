@@ -1,15 +1,15 @@
 'use strict';
 
-var express = require("express");
-var router = express.Router();
-var Contact = require("../models/contact");
-var SMS = require("../models/sms");
+const express = require("express");
+const router = express.Router();
+const Contact = require("../models/contact");
+const SMS = require("../models/sms");
 const GeneralUtilities = require("../utilities/general_utilities");
 const AuthTokenHelper = require("../utilities/authentication_helper");
 
 //Handle all requests with the smsId parameter
-router.param("contactId", function (req, res, next, contactId) {
-  Contact.findById(contactId, function (error, contact) {
+router.param("contactId", (req, res, next, contactId) => {
+  Contact.findById(contactId, (error, contact) => {
     if (error) return next(error);
     if (!contact) {
       error = new Error("Contact Not Found");
@@ -23,18 +23,18 @@ router.param("contactId", function (req, res, next, contactId) {
 
 //POST /contact/signup
 //Route for creating contacts
-router.post("/signup", function (req, res, next) {
+router.post("/signup", (req, res, next) => {
   if (GeneralUtilities.validateParams(req, ["firstName", "lastName", "phoneNumber", "password"])) {
-    Contact.find({ phoneNumber: req.body.phoneNumber }, function (error, exstingContact) {
+    Contact.find({ phoneNumber: req.body.phoneNumber }, (error, exstingContact) => {
       if (error) return next(error);
       if (exstingContact.length > 0) {
         error = new Error("Contact already exists");
         error.status = 409;
         return next(error);
       } else {
-        var contact = new Contact(req.body);
+        const contact = new Contact(req.body);
         contact.phoneNumber = req.body.phoneNumber;
-        contact.save(function (error, contact) {
+        contact.save((error, contact) => {
           if (error) return next(error);
           res.status(201);
           res.json({
@@ -44,7 +44,7 @@ router.post("/signup", function (req, res, next) {
       }
     });
   } else {
-    var error = new Error("Parameter(s) missing");
+    const error = new Error("Parameter(s) missing");
     error.status = 422;
     return next(error);
   }
@@ -52,12 +52,12 @@ router.post("/signup", function (req, res, next) {
 
 //POST /contact/signin
 //Route for contacts to login
-router.post("/signin", function (req, res, next) {
+router.post("/signin", (req, res, next) => {
   if (GeneralUtilities.validateParams(req, ["phoneNumber", "password"])) {
-    Contact.findOne({ phoneNumber: req.body.phoneNumber }, function (error, contact) {
+    Contact.findOne({ phoneNumber: req.body.phoneNumber }, (error, contact) => {
       if (error) return next(error);
       if (contact) {
-        contact.comparePassword(req.body.password, function (error, isMatching) {
+        contact.comparePassword(req.body.password, (error, isMatching) => {
           if (error) throw error;
           if (isMatching) {
             res.status = 200;
@@ -77,7 +77,7 @@ router.post("/signin", function (req, res, next) {
       }
     });
   } else {
-    var error = new Error("Parameter(s) missing");
+    const error = new Error("Parameter(s) missing");
     error.status = 422;
     return next(error);
   }
@@ -85,15 +85,15 @@ router.post("/signin", function (req, res, next) {
 
 //DELETE /contact/:contactId
 //Route for specific contact deleting
-router.delete("/:contactId", AuthTokenHelper.verifyToken, function (req, res, next) {
-  var contactId = req.contact._id;
+router.delete("/:contactId", AuthTokenHelper.verifyToken, (req, res, next) => {
+  const contactId = req.contact._id;
   req.contact.remove(function (error) {
     if (error) return next(error);
-    SMS.deleteMany({ sender: contactId }, function (error) {
+    SMS.deleteMany({ sender: contactId }, error => {
       if (error) return next(error);
     });
-    var jsonResult = { response: "Contact was deleted" };
-    SMS.updateMany({ reciepient: contactId }, { reciepient: "Deleted" }, function (error, res1) {
+    const jsonResult = { response: "Contact was deleted" };
+    SMS.updateMany({ reciepient: contactId }, { reciepient: "Deleted" }, (error, res1) => {
       if (error) return next(error);
       jsonResult.updatedSMSList = res1;
       res.json(jsonResult);

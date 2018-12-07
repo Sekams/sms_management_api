@@ -1,11 +1,11 @@
 'use scrict';
 
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 //Define sms schema
-var SMSSchema = new Schema({
+const SMSSchema = new Schema({
     sender: { type: String, required: true },
     reciepient: { type: String, required: true },
     message: { type: String, required: true },
@@ -15,13 +15,13 @@ var SMSSchema = new Schema({
 });
 
 //Add update method to the sms Schema
-SMSSchema.method("update", function (updates, callback) {
+SMSSchema.method("update", (updates, callback) => {
     Object.assign(this, updates, { updatedAt: new Date() });
     this.save(callback);
 });
 
 //Get sms model from schema
-var sms = mongoose.model("sms", SMSSchema);
+const sms = mongoose.model("sms", SMSSchema);
 
 //Export sms model
 module.exports = sms;
