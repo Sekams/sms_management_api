@@ -42,6 +42,6 @@ yarn start
 | DELETE | /api/v1/contacts/\<contactId\> | YES | Deletes a particular contact (user) with the id **contactId** and all the messages they sent|
 | POST | /api/v1/sms | YES | Creates a new SMS message for the logged in user and requires **reciepient** and **message** as string arguments (`reciepient` is the id of the reciepient) |
 | GET | /api/v1/sms | YES | Retrieves all available SMS messages that were sent or received by the logged in user |
-| GET | /api/v1/sms/\<smsId\> | NO | Retrives a particular sms with the id **smsId** that was sent or received by the logged in user |
+| GET | /api/v1/sms/\<smsId\> | YES | Retrives a particular sms with the id **smsId** that was sent or received by the logged in user |
 | PUT | /api/v1/sms/\<smsId\> | YES | Updates a particular sms with the id **smsId** that was sent by the logged in user and takes either **reciepient**, **message** or both as string arguments |
 | DELETE | /api/v1/sms/\<smsId\> | YES | Deletes a particular sms with the id **smsId** that was sent by the logged in user |
