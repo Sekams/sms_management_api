@@ -4,7 +4,6 @@
   "description": "Application for handling messages",
   "main": "app.js",
   "scripts": {
-    "test": "source .env && export NODE_ENV=test PORT=3030  && nyc mocha tests/**/*.js",
     "start": "source .env && node app.js"
   },
   "repository": {
@@ -23,11 +22,5 @@
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.3.14",
     "morgan": "^1.9.1"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
-    "supertest": "^3.3.0"
   }
 }

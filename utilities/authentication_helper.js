@@ -1,9 +1,9 @@
 'use strict'
 
-var jwt = require('jsonwebtoken');
-var Contact = require('../models/contact');
+const jwt = require('jsonwebtoken');
+const Contact = require('../models/contact');
 
-const generateToken = function (contactId) {
+const generateToken = contactId => {
     return jwt.sign({ id: contactId }, process.env.SECRET, {
         expiresIn: 86400 // expires in 24 hours
     });
@@ -12,9 +12,9 @@ const generateToken = function (contactId) {
 const verifyToken = (req, res, next) => {
     const token = req.headers['x-access-token'];
     if (token) {
-        jwt.verify(token, process.env.SECRET, function (error, decoded) {
+        jwt.verify(token, process.env.SECRET, (error, decoded) => {
             if (error) return next(error);
-            Contact.findById(decoded.id, function (error, contact) {
+            Contact.findById(decoded.id, (error, contact) => {
                 if (!contact) {
                     error = new Error("Contact Not Found");
                     error.status = 404;
@@ -26,7 +26,7 @@ const verifyToken = (req, res, next) => {
             });
         });
     } else {
-        var error = new Error("No access token");
+        const error = new Error("No access token");
         error.status = 401;
         return next(error);
     }
