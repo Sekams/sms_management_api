@@ -18,13 +18,18 @@ yarn install
 
 4. Install MongoDB (guide [here](https://docs.mongodb.com/manual/installation/))
 
-5. Set up the environment variables in a file named `.env` at the application root directory and follow the structure in the `.env.example` file.
+5. Create a Mongo Database and add take note of its name to be used in the next step. Run the command below in a fresh terminal instance to start MongoDB
+```
+mongod
+```
 
-6. After all the requirements are installed on the local application instance, run the application by running the following code in the terminal at the application root directory:
+6. Set up the environment variables in a file named `.env` at the application root directory and follow the structure in the `.env.example` file.
+
+7. After all the requirements are installed on the local application instance, run the application by running the following code in the terminal at the application root directory:
 ```
 yarn start
 ```
-7. After successfully running the application, one can explore the features of The SMS Management API by accessing: `http://localhost:<PORT>` (replace `<PORT>` with port number) in any client of choice
+8. After successfully running the application, one can explore the features of The SMS Management API by accessing: `http://localhost:<PORT>` (replace `<PORT>` with port number) in any client of choice
 
 ## Features
 * User Account management (Signup, Signin, Authentication and Removal)
