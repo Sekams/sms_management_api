@@ -2,9 +2,6 @@
 
 **The SMS Management API** is a RESTful API for serving data persistence methods to The SMS Management application.
 
-## Live API
-WIP
-
 ## Getting Started
 To be able to use the application locally, one should follow the guidelines highlighted below.
 
