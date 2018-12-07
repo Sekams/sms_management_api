@@ -18,17 +18,17 @@ const ContactShema = new Schema({
     updatedAt: { type: Date, default: Date.now }
 });
 
-ContactShema.pre("save", next => {
+ContactShema.pre("save", function (next) {
     const contact = this;
     // only hash the password if it has been modified (or is new)
     if (!contact.isModified('password')) return next();
 
     // generate a salt
-    bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
+    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
         if (err) return next(err);
 
         // hash the password along with our new salt
-        bcrypt.hash(contact.password, salt, (err, hash) => {
+        bcrypt.hash(contact.password, salt, function (err, hash) {
             if (err) return next(err);
 
             // override the cleartext password with the hashed one
@@ -39,15 +39,15 @@ ContactShema.pre("save", next => {
 });
 
 //Compare hashed password with that in database
-ContactShema.method("comparePassword", (candidatePassword, next) => {
-    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+ContactShema.method("comparePassword", function (candidatePassword, next) {
+    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
         if (err) return next(err);
         next(null, isMatch);
     });
 });
 
 //Add update method to the contact Schema
-ContactShema.method("update", (updates, callback) => {
+ContactShema.method("update", function (updates, callback) {
     Object.assign(this, updates, { updatedAt: new Date() });
     this.save(callback);
 });

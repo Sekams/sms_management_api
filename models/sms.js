@@ -15,7 +15,7 @@ const SMSSchema = new Schema({
 });
 
 //Add update method to the sms Schema
-SMSSchema.method("update", (updates, callback) => {
+SMSSchema.method("update", function (updates, callback) {
     Object.assign(this, updates, { updatedAt: new Date() });
     this.save(callback);
 });

@@ -37,7 +37,27 @@ yarn start
 
 | Type | API EndPoint | Requires Token | Description |
 | --- | --- | --- | --- |
-| POST | /api/v1/contacts/signup | NO | Registers a user and requires **firstName**, **lastName**, **phoneNumber** and **password** as string arguments |
+| POST | /api/v1/contacts/signup | NO | Registers a user and requires **firstName**, **lastName**, **phoneNumber** and **password** as string arguments
+
+**Sample Payload**
+
+```
+{
+	"firstName": "Chris",
+	"lastName": "Griffin",
+	"phoneNumber": "256776123456",
+	"password": "12345"
+}
+```
+
+**Sample Response**
+
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMGEzYjM5MmEzZTViMTkxNjlkMmMwYSIsImlhdCI6MTU0NDE3NDM5MywiZXhwIjoxNTQ0MjYwNzkzfQ.MTfUZcZks7uXrGCkJyBJLG2hWqK2KYElU7qEvBSk4eA"
+}
+```
+ |
 | POST | /api/v1/contacts/signin | NO | Logs regitered users in and requires **phoneNumber** and **password** as string arguments |
 | DELETE | /api/v1/contacts/\<contactId\> | YES | Deletes a particular contact (user) with the id **contactId** and all the messages they sent|
 | POST | /api/v1/sms | YES | Creates a new SMS message for the logged in user and requires **reciepient** and **message** as string arguments (`reciepient` is the id of the reciepient) |
