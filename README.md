@@ -37,10 +37,8 @@ yarn start
 
 | Type | API EndPoint | Requires Token | Description |
 | --- | --- | --- | --- |
-| POST | /api/v1/contacts/signup | NO | Registers a user and requires **firstName**, **lastName**, **phoneNumber** and **password** as string arguments
-
-**Sample Payload**
-
+| POST | /api/v1/contacts/signup | NO | Registers a user and requires **firstName**, **lastName**, **phoneNumber** and **password** as string arguments<br/>
+**Sample Payload**<br/>
 ```
 {
 	"firstName": "Chris",
@@ -49,14 +47,13 @@ yarn start
 	"password": "12345"
 }
 ```
-
-**Sample Response**
-
+<br/>
+**Sample Response**<br/>
 ```
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjMGEzYjM5MmEzZTViMTkxNjlkMmMwYSIsImlhdCI6MTU0NDE3NDM5MywiZXhwIjoxNTQ0MjYwNzkzfQ.MTfUZcZks7uXrGCkJyBJLG2hWqK2KYElU7qEvBSk4eA"
 }
-```
+``` 
  |
 | POST | /api/v1/contacts/signin | NO | Logs regitered users in and requires **phoneNumber** and **password** as string arguments |
 | DELETE | /api/v1/contacts/\<contactId\> | YES | Deletes a particular contact (user) with the id **contactId** and all the messages they sent|
@@ -65,3 +62,10 @@ yarn start
 | GET | /api/v1/sms/\<smsId\> | YES | Retrives a particular sms with the id **smsId** that was sent or received by the logged in user |
 | PUT | /api/v1/sms/\<smsId\> | YES | Updates a particular sms with the id **smsId** that was sent by the logged in user and takes either **reciepient**, **message** or both as string arguments |
 | DELETE | /api/v1/sms/\<smsId\> | YES | Deletes a particular sms with the id **smsId** that was sent by the logged in user |
+
+
+## Testing
+The application's tests can be executed by running the code below within the terminal at the application root directory:
+```
+yarn test
+```
