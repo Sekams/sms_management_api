@@ -81,6 +81,7 @@ router.put("/:smsId", AuthTokenHelper.verifyToken, (req, res) => {
         error.status = 403;
         return next(error);
     }
+    req.body.status = 'edited';
     req.sms.update(req.body, (error, result) => {
         if (error) return next(error);
         res.json(result);
