@@ -58,7 +58,7 @@ router.post("/signin", (req, res, next) => {
       if (error) return next(error);
       if (contact) {
         contact.comparePassword(req.body.password, (error, isMatching) => {
-          if (error) throw error;
+          if (error) return next(error);
           if (isMatching) {
             res.status = 200;
             res.json({
