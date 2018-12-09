@@ -60,10 +60,11 @@ router.post("/", AuthTokenHelper.verifyToken, (req, res, next) => {
 
 //GET /sms/:smsId
 //Route for specific sms reading
-router.get("/:smsId", AuthTokenHelper.verifyToken, (req, res) => {
+router.get("/:smsId", AuthTokenHelper.verifyToken, (req, res, next) => {
     const { sender, reciepient } = req.sms;
-    const userId = req.loggedInContact._id;
-    if (![sender, reciepient].includes(userId)) {
+    const userId = `${req.loggedInContact._id}`;
+    const ids = [sender, reciepient];
+    if (!ids.includes(userId)) {
         const error = new Error("You are not allowed to view this sms");
         error.status = 403;
         return next(error);
@@ -73,7 +74,7 @@ router.get("/:smsId", AuthTokenHelper.verifyToken, (req, res) => {
 
 //PUT /sms/:smsId
 //Route for specific sms updating
-router.put("/:smsId", AuthTokenHelper.verifyToken, (req, res) => {
+router.put("/:smsId", AuthTokenHelper.verifyToken, (req, res, next) => {
     const { sender } = req.sms;
     const userId = req.loggedInContact._id;
     if (sender != userId) {
@@ -90,7 +91,7 @@ router.put("/:smsId", AuthTokenHelper.verifyToken, (req, res) => {
 
 //DELETE /sms/:smsId
 //Route for specific sms deleting
-router.delete("/:smsId", AuthTokenHelper.verifyToken, (req, res) => {
+router.delete("/:smsId", AuthTokenHelper.verifyToken, (req, res, next) => {
     const { sender } = req.sms;
     const userId = req.loggedInContact._id;
     if (sender != userId) {

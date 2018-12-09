@@ -4,7 +4,7 @@
   "description": "Application for handling messages",
   "main": "app.js",
   "scripts": {
-    "test": "source .env && export NODE_ENV=test PORT=3030  && mocha tests/**/*.js — timeout 10000",
+    "test": "source .env && export NODE_ENV=test && nyc mocha tests/*.spec.js --exit",
     "start": "source .env && node app.js"
   },
   "repository": {
@@ -27,6 +27,18 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "supertest": "^3.3.0"
+  },
+  "nyc": {
+    "include": [
+      "routes/*.js",
+      "utilities/*.js",
+      "models/*.js"
+    ],
+    "reporter": [
+      "text",
+      "html"
+    ]
   }
 }

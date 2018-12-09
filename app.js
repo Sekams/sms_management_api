@@ -10,7 +10,9 @@ const { CONTACTS_BASE_URL, SMS_BASE_URL } = require('./utilities/constants');
 
 
 //Log requests in console using Morgan
-app.use(logger("dev"));
+if (process.env.NODE_ENV === 'dev') {
+    app.use(logger("dev"));
+}
 
 //Parse JSON objects from the requests
 app.use(jsonParser());
@@ -19,19 +21,23 @@ app.use(jsonParser());
 const mongoose = require("mongoose");
 
 //Connect to the database
-mongoose.connect(`${process.env.DATABASE_URI}${process.env.NODE_ENV === 'test' ? '_test' : ''}`);
+mongoose.set('useCreateIndex', true);
+mongoose.connect(
+    `${process.env.DATABASE_URI}${process.env.NODE_ENV === 'test' ? '_test' : ''}`,
+    { useNewUrlParser: true }
+);
 
 //Assign database connection to a constiable
 const db = mongoose.connection;
 
 //Catch database connection errors
 db.on("error", function (err) {
-    console.error("connection error:", err);
+    if (process.env.NODE_ENV === 'dev') console.error("connection error:", err);
 });
 
 //Open database connection
 db.once("open", function () {
-    console.log("db connection successful");
+    if (process.env.NODE_ENV === 'dev') console.log("db connection successful");
 });
 
 //Handle Cross Origin Request permissions
@@ -54,7 +60,7 @@ app.use(SMS_BASE_URL, smsRoutes);
 
 //Welcome page
 app.use("/", function (req, res, next) {
-  res.json({ message: 'Welcome to the SMS Management API' });
+    res.json({ message: 'Welcome to the SMS Management API' });
 });
 
 //Catch 404 errors and foward them to the error handler
@@ -79,7 +85,7 @@ const port = process.env.PORT || 3000;
 
 //Run the application on specified port
 app.listen(port, function () {
-    console.log("Express server is listening on port", port);
+    if (process.env.NODE_ENV === 'dev') console.log("Express server is listening on port", port);
 });
 
 module.exports = app;
